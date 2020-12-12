@@ -1,3 +1,3 @@
 module.exports = {
-  projects: ['<rootDir>/apps/speech-to-crap'],
+  projects: ['<rootDir>/apps/speech-to-crap', '<rootDir>/apps/memeui'],
 };

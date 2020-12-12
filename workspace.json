@@ -59,10 +59,108 @@
           }
         }
       }
+    },
+    "memeui": {
+      "root": "apps/memeui",
+      "sourceRoot": "apps/memeui/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/web:build",
+          "outputs": [
+            "{options.outputPath}"
+          ],
+          "options": {
+            "outputPath": "dist/apps/memeui",
+            "index": "apps/memeui/src/index.html",
+            "main": "apps/memeui/src/main.tsx",
+            "polyfills": "apps/memeui/src/polyfills.ts",
+            "tsConfig": "apps/memeui/tsconfig.app.json",
+            "assets": [
+              "apps/memeui/src/favicon.ico",
+              "apps/memeui/src/assets"
+            ],
+            "styles": [],
+            "scripts": [],
+            "webpackConfig": "@nrwl/react/plugins/webpack"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/memeui/src/environments/environment.ts",
+                  "with": "apps/memeui/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "memeui:build",
+            "proxyConfig": "apps/memeui/proxy.conf.js"
+
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "memeui:build:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/memeui/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/apps/memeui"
+          ],
+          "options": {
+            "jestConfig": "apps/memeui/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {
     "defaultCollection": "@nrwl/nest"
   },
-  "defaultProject": "speech-to-crap"
+  "defaultProject": "speech-to-crap",
+  "generators": {
+    "@nrwl/react": {
+      "application": {
+        "style": "styled-components",
+        "linter": "eslint",
+        "babel": true
+      },
+      "component": {
+        "style": "styled-components"
+      },
+      "library": {
+        "style": "styled-components",
+        "linter": "eslint"
+      }
+    }
+  }
 }
