@@ -1,0 +1,68 @@
+{
+  "version": 2,
+  "projects": {
+    "speech-to-crap": {
+      "root": "apps/speech-to-crap",
+      "sourceRoot": "apps/speech-to-crap/src",
+      "projectType": "application",
+      "prefix": "speech-to-crap",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:build",
+          "outputs": [
+            "{options.outputPath}"
+          ],
+          "options": {
+            "outputPath": "dist/apps/speech-to-crap",
+            "main": "apps/speech-to-crap/src/main.ts",
+            "tsConfig": "apps/speech-to-crap/tsconfig.app.json",
+            "assets": [
+              "apps/speech-to-crap/src/assets"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/speech-to-crap/src/environments/environment.ts",
+                  "with": "apps/speech-to-crap/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "speech-to-crap:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/speech-to-crap/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/apps/speech-to-crap"
+          ],
+          "options": {
+            "jestConfig": "apps/speech-to-crap/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/nest"
+  },
+  "defaultProject": "speech-to-crap"
+}
