@@ -1,6 +1,7 @@
+const port=process.env.PORT;
 const PROXY_CONFIG = {
   '/api': {
-    target: 'http://localhost:3333',
+    target: `http://localhost:${port}`,
     secure: false,
   },
 };
