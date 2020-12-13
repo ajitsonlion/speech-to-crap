@@ -48,8 +48,8 @@ export function App() {
               />
             </Center>
             <Image
-              fallback={<Image boxSize="60vw" src={response?.data?.preview} />}
-              boxSize="60vw"
+              fallback={<Image width="50vw" src={response?.data?.preview} />}
+              width="50vw"
               src={response?.data?.gif}
             />
           </Stack>
