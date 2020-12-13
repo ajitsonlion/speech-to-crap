@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "nx": "nx",
-    "dev": "nx serve & nx serve memeui",
+    "dev": "nx serve & nx serve memeui --port 3000",
     "start": "node dist/apps/speech-to-crap/main.js",
     "build:frontend:prod": "nx build memeui --prod",
     "build:api:prod": "nx build --prod",

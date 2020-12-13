@@ -6,16 +6,17 @@ import { Header } from './Header';
 import { Footer } from './Footer';
 import { Text } from '@chakra-ui/react';
 import { Icon } from '@chakra-ui/react';
-import { FcLikePlaceholder } from 'react-icons/fc';
+import { FcRefresh } from 'react-icons/fc';
+import { getRandomWelcomeQuery } from './seed';
 
 declare const annyang: any;
 
 export function App() {
   const { get, response } = useFetch(`/api/gif`);
-  const [query, setQuery] = useState('welcome to shit show');
+  const [query, setQuery] = useState(getRandomWelcomeQuery());
 
   const fetchQuerResult = async (query: string) => {
-    await get(`?query=${query}`);
+    await get(`?query=${query}&random=${Math.random()}`);
   };
 
   useEffect(() => {
@@ -39,20 +40,22 @@ export function App() {
             <Center>
               <Text fontSize="3xl">{query}</Text>
 
-              <IconButton aria-label="Search database" icon={ <Icon as={FcLikePlaceholder} />} />
+              <IconButton
+                isRound
+                onClick={()=>fetchQuerResult(query)}
+
+                aria-label="Show another" icon={ <Icon as={FcRefresh} />} />
 
             </Center>
             <Image
               fallback={
                 <Image
                   boxSize="60vw"
-                  objectFit="cover"
-                  src={response?.data?.data.images.preview_gif.url}
+                  src={response?.data?.preview}
                 />
               }
               boxSize="60vw"
-              objectFit="cover"
-              src={response?.data?.gif}
+              src={response?.data?.image}
             />
           </Stack>
         </Center>
