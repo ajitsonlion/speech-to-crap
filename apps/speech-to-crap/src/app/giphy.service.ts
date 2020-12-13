@@ -1,44 +1,17 @@
 import { Injectable } from '@nestjs/common';
-import { GiphyFetch } from '@giphy/js-fetch-api';
+import { giphyTranslate } from './GiphyTranslate';
+import { giphySearch } from './GiphySearch';
+import { tenorSearch } from './TenorSearch';
+import { GifResponse } from './response';
 
-const GIPHY_API_KEY = process.env.GIPHY_API_KEY;
-const gf = new GiphyFetch(process.env.GIPHY_API_KEY);
+const GIF_SERVICES = [tenorSearch, giphySearch, giphyTranslate];
 
 @Injectable()
 export class GiphyService {
-  async getGif(query: string) {
-    if (Math.random() > 0.5) {
-      const { data } = await gf.search(query, {
-        sort: 'relevant',
-        lang: 'en',
-        limit: 10,
-        type: 'gifs',
-      });
+  async getGif(query: string): Promise<GifResponse> {
+    const gifService =
+      GIF_SERVICES[Math.floor(Math.random() * GIF_SERVICES.length)];
 
-      const gifs = data.map((gif) => gif.images);
-
-      const gif = gifs[Math.floor(Math.random() * gifs.length)];
-
-      return {
-        image: gif.downsized_large.url,
-        preview: gif.preview_gif.url,
-        method: 'search',
-      };
-    } else {
-      const weirdness = Math.floor(Math.random() * 10) + 1;
-
-      const response = await fetch(
-        `https://api.giphy.com/v1/gifs/translate?api_key=${GIPHY_API_KEY}&s=${query}&weirdness=${weirdness}`
-      );
-
-      const { data } = await response.json();
-
-      return {
-        image: data.images.downsized_large.url,
-        preview: data.images.preview_gif.url,
-        method: 'translate',
-        weirdness,
-      };
-    }
+    return await gifService(query);
   }
 }

@@ -42,20 +42,15 @@ export function App() {
 
               <IconButton
                 isRound
-                onClick={()=>fetchQuerResult(query)}
-
-                aria-label="Show another" icon={ <Icon as={FcRefresh} />} />
-
+                onClick={() => fetchQuerResult(query)}
+                aria-label="Show another"
+                icon={<Icon as={FcRefresh} />}
+              />
             </Center>
             <Image
-              fallback={
-                <Image
-                  boxSize="60vw"
-                  src={response?.data?.preview}
-                />
-              }
+              fallback={<Image boxSize="60vw" src={response?.data?.preview} />}
               boxSize="60vw"
-              src={response?.data?.image}
+              src={response?.data?.gif}
             />
           </Stack>
         </Center>
