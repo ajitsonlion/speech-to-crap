@@ -3,7 +3,7 @@ import { GifResponse } from '@memer/models';
 
 const gf = new GiphyFetch(process.env.GIPHY_API_KEY);
 
-export async function giphySearch(query: string,sentiments:string[]): Promise<GifResponse> {
+export async function giphySearch(query: string,sentiments:string[]){
   const { data } = await gf.search(query, {
     sort: 'relevant',
     lang: 'en',

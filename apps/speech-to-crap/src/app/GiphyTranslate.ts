@@ -1,8 +1,6 @@
-import { GifResponse } from '@memer/models';
-
 const GIPHY_API_KEY = process.env.GIPHY_API_KEY;
 
-export async function giphyTranslate(query: string,sentiments:string[]): Promise<GifResponse> {
+export async function giphyTranslate(query: string,sentiments:string[]){
   const weirdness = Math.floor(Math.random() * 10) + 1;
 
   const response = await fetch(
