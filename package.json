@@ -29,6 +29,9 @@
     "help": "nx help"
   },
   "private": true,
+  "engines": {
+    "node": "12.x"
+  },
   "dependencies": {
     "@chakra-ui/icons": "^1.0.1",
     "@chakra-ui/react": "^1.0.3",
