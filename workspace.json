@@ -114,7 +114,6 @@
           "options": {
             "buildTarget": "memeui:build",
             "proxyConfig": "apps/memeui/proxy.conf.js"
-
           },
           "configurations": {
             "production": {
@@ -137,6 +136,31 @@
           ],
           "options": {
             "jestConfig": "apps/memeui/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "models": {
+      "root": "libs/models",
+      "sourceRoot": "libs/models/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/models/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/models"
+          ],
+          "options": {
+            "jestConfig": "libs/models/jest.config.js",
             "passWithNoTests": true
           }
         }

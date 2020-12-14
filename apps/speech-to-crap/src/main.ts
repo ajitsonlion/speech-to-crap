@@ -1,14 +1,7 @@
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- */
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 require('dotenv').config();
 
 import { NestExpressApplication } from '@nestjs/platform-express';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const fetch = require('node-fetch');
 
 if (!globalThis.fetch) {

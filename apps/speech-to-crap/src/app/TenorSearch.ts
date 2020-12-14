@@ -1,9 +1,9 @@
+import { GifResponse } from '@memer/models';
 import { TenorResponse } from './TenorResponse';
-import { GifResponse } from './response';
 
 const TENOR_API_KEY = process.env.TENOR_API_KEY;
 
-export async function tenorSearch(query: string): Promise<GifResponse> {
+export async function tenorSearch(query: string,sentiments:string[]): Promise<GifResponse> {
   const lmt = 10;
 
   // using default locale of en_US

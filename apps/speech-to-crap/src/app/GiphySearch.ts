@@ -1,9 +1,9 @@
 import { GiphyFetch } from '@giphy/js-fetch-api';
-import { GifResponse } from './response';
+import { GifResponse } from '@memer/models';
 
 const gf = new GiphyFetch(process.env.GIPHY_API_KEY);
 
-export async function giphySearch(query: string): Promise<GifResponse> {
+export async function giphySearch(query: string,sentiments:string[]): Promise<GifResponse> {
   const { data } = await gf.search(query, {
     sort: 'relevant',
     lang: 'en',

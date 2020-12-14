@@ -2,16 +2,21 @@ import { Injectable } from '@nestjs/common';
 import { giphyTranslate } from './GiphyTranslate';
 import { giphySearch } from './GiphySearch';
 import { tenorSearch } from './TenorSearch';
-import { GifResponse } from './response';
+import { analyzeSentiment } from './sentimentAnalysis';
 
 const GIF_SERVICES = [tenorSearch, giphySearch, giphyTranslate];
 
 @Injectable()
 export class GiphyService {
-  async getGif(query: string): Promise<GifResponse> {
-    const gifService =
-      GIF_SERVICES[Math.floor(Math.random() * GIF_SERVICES.length)];
+  async getGif(query: string) {
+    const sentiment = await analyzeSentiment(query);
 
-    return await gifService(query);
+    const gifs = await Promise.all(
+      GIF_SERVICES.map(
+        async (gifService) => await gifService(query, sentiment.filteredReview)
+      )
+    );
+
+    return { gifs, sentiment };
   }
 }

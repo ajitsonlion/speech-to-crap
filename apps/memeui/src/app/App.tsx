@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import useFetch from 'use-http';
-import { Center, ChakraProvider, IconButton, Stack } from '@chakra-ui/react';
-import { Image } from '@chakra-ui/react';
+import { Center, ChakraProvider, Stack } from '@chakra-ui/react';
 import { Header } from './Header';
 import { Footer } from './Footer';
-import { Text } from '@chakra-ui/react';
-import { Icon } from '@chakra-ui/react';
-import { FcRefresh } from 'react-icons/fc';
 import { getRandomWelcomeQuery } from './seed';
+import { GifResponse } from '@memer/models';
+import { Query } from './Query';
+import { GifGallery } from './GifGallery';
 
 declare const annyang: any;
 
 export function App() {
-  const { get, response } = useFetch(`/api/gif`);
+  const { get, response } = useFetch<GifResponse>(`/api/gif`);
   const [query, setQuery] = useState(getRandomWelcomeQuery());
 
   const fetchQuerResult = async (query: string) => {
@@ -38,20 +37,11 @@ export function App() {
         <Center>
           <Stack spacing={3}>
             <Center>
-              <Text fontSize="3xl">{query}</Text>
-
-              <IconButton
-                isRound
-                onClick={() => fetchQuerResult(query)}
-                aria-label="Show another"
-                icon={<Icon as={FcRefresh} />}
-              />
+              <Query query={query} refetch={fetchQuerResult}></Query>
             </Center>
-            <Image
-              fallback={<Image width="50vw" src={response?.data?.preview} />}
-              width="50vw"
-              src={response?.data?.gif}
-            />
+            <Center>
+              <GifGallery {...response?.data} />
+            </Center>
           </Stack>
         </Center>
       </main>
